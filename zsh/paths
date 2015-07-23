@@ -1,0 +1,23 @@
+# Java
+# export JAVA_HOME="/Library/Java/Home"
+
+export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$HOME/bin/mount:$PATH"
+
+# Homebrew Python
+# export PATH=/usr/local/share/python:$PATH
+
+# Oracle
+#export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
+#export DYLD_LIBRARY_PATH=$ORACLE_HOME
+#export PATH=$PATH:$ORACLE_HOME
+export DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
+
+# NPM
+export PATH=node_modules/.bin:$PATH
+export PATH=/usr/local/share/npm/bin:$PATH
+
+# Homebrew
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# Rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"

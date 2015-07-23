@@ -1,0 +1,76 @@
+# vi: ft=zsh
+
+export EDITOR='emacs'
+export GIT_EDITOR='emacs'
+
+export TERM='xterm-256color'
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
+export PAGER='most'
+
+export AUTOFEATURE='true'
+
+fpath=(~/.zsh/functions $fpath)
+
+autoload -U ~/.zsh/functions/*(:t)
+
+export REPORTTIME=10 # print elapsed time when more than 10 seconds
+
+setopt NO_BG_NICE # don't nice background tasks
+setopt NO_HUP
+setopt NO_LIST_BEEP
+setopt LOCAL_OPTIONS # allow functions to have local options
+setopt LOCAL_TRAPS # allow functions to have local traps
+setopt PROMPT_SUBST
+# setopt CORRECT
+unsetopt correct_all
+setopt COMPLETE_IN_WORD
+setopt IGNORE_EOF
+setopt rmstarsilent # Don't confirm `rm *
+
+zle -N newtab
+
+bindkey '^[^[[D' backward-word
+bindkey '^[^[[C' forward-word
+bindkey '^[[5D' beginning-of-line
+bindkey '^[[5C' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[^N' newtab
+bindkey '^?' backward-delete-char
+bindkey -M viins 'fd' vi-cmd-mode
+
+# History settings
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=$HOME/.zsh_history
+export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g"
+export KEYTIMEOUT=10  # Fixes vi-mode esc lag
+setopt append_history
+setopt inc_append_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_no_functions
+setopt no_hist_beep
+setopt hist_save_no_dups
+setopt hist_verify
+setopt share_history # share history between sessions ???
+
+# See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
+for keymap in v a; do
+  bindkey -$keymap "^n" history-incremental-search-backward
+  bindkey -$keymap "^p" history-incremental-search-forward
+done
+
+# Turn off flow control to let <Ctrl-s> passthrough to vim
+stty -ixon
+
+# http://hoelz.ro/blog/making-ssh_auth_sock-work-between-detaches-in-tmux
+if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/.auth_sock" ] ; then
+  unlink "$HOME/.ssh/.auth_sock" 2>/dev/null
+  ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/.auth_sock"
+  export SSH_AUTH_SOCK="$HOME/.ssh/.auth_sock"
+fi

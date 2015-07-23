@@ -1,0 +1,38 @@
+[user]
+  name = Kevin Colyar
+  email = kevin@colyar.net
+[alias]
+  co = checkout
+  ci = commit
+  dc = diff --cached
+  aa = add --all
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow) %an %Creset' --abbrev-commit --date=relative
+  vimdiff = difftool -y -t vimdiff
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  excludesfile = ~/.gitignore
+  editor = emacs
+[apply]
+  whitespace = nowarn
+[init]
+  templatedir = ~/.git_template
+; [diff]
+;   external = ~/bin/git-diff-driver.sh
+; [pager]
+;   diff =
+[mergetool "diffmerge"]
+  cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
+  trustExitCode = false
+[github]
+  user = kevincolyar
+  token =
+[http]
+  sslVerify = false
+[push]
+  default = matching
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
