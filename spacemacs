@@ -16,12 +16,11 @@
      ;; Example of useful layers you may want to use right away
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
-     ;; auto-completion
+     auto-completion
      better-defaults
      git
      version-control
      syntax-checking
-     theme-megapack
      wakatime
      osx
      markdown
@@ -29,8 +28,15 @@
      html
      javascript
      ruby
+     ruby-on-rails
+     yaml
      shell
+     shell-scripts
      restclient
+     dash
+     (org :variables
+          org-enable-github-support t)
+     org-plus-contrib
      ;; csharp
      ;; python
      ;; php
@@ -69,11 +75,14 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(material
+   dotspacemacs-themes '(
+                         spacemacs-dark
                          monokai
+                         material
                          solarized-dark
-                         leuven
                          solarized-light
+                         wombat
+                         leuven
                          zenburn)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -166,6 +175,28 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
+  (defun my-setup-indent (n)
+    ;; web development
+    (setq coffee-tab-width n) ; coffeescript
+    (setq javascript-indent-level n) ; javascript-mode
+    (setq js-indent-level n) ; js-mode
+    (setq js2-basic-offset n) ; js2-mode
+    (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+    (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+    (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
+    (setq css-indent-offset n) ; css-mode
+    )
+
+  (defun my-personal-code-style ()
+    (interactive)
+    (message "Indentation set to two")
+    (setq indent-tabs-mode nil) ; use space instead of tab
+    (my-setup-indent 2) ; indent 2 spaces width
+    )
+
+  ;; call indentation
+  (my-personal-code-style)
+
   ;; Follow symlinks
   (setq vc-follow-symlinks t)
 
@@ -185,8 +216,13 @@ layers configuration."
   ;; Fix backgrounding of emacs process
   (define-key evil-normal-state-map "\C-z" 'suspend-emacs)
 
+  ;; Ctrl-s to save
+  (define-key evil-normal-state-map "\C-s" 'save-buffer)
+
   ;; Ruby key maps
   (evil-define-key 'insert enh-ruby-mode-map "\C-l" (kbd " => "))
+  (evil-define-key 'normal enh-ruby-mode-map "\C-t" 'ruby-test-run)
+
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
@@ -216,12 +252,53 @@ layers configuration."
  '(ahs-inhibit-face-list nil)
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
+ '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(fci-rule-color "#49483E" t)
+ '(highlight-changes-colors ("#FD5FF0" "#AE81FF"))
+ '(highlight-tail-colors
+   (quote
+    (("#49483E" . 0)
+     ("#67930F" . 20)
+     ("#349B8D" . 30)
+     ("#21889B" . 50)
+     ("#968B26" . 60)
+     ("#A45E0A" . 70)
+     ("#A41F99" . 85)
+     ("#49483E" . 100))))
+ '(magit-diff-use-overlays nil)
  '(ring-bell-function (quote ignore) t)
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(wakatime-api-key "")
  '(wakatime-cli-path "/usr/local/bin/wakatime")
- '(wakatime-python-bin "/usr/local/bin/python"))
+ '(wakatime-python-bin "")
+ '(weechat-color-list
+   (unspecified "#272822" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
