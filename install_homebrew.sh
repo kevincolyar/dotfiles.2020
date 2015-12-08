@@ -1,11 +1,11 @@
 #!/bin/bash
 
-progs_common="macvim zsh tmux readline most brew-cask dos2unix terminal-notifier ack htop markdown tree the_silver_searcher html2text sshuttle"
+progs_common="macvim zsh tmux readline most brew-cask dos2unix terminal-notifier ack htop markdown tree pt html2text sshuttle"
 progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap"
 progs_docker="docker boot2docker docker-compose"
 progs_db="freetds --with-unixodbc"
 progs_sec="encfs nmap netcat autossh"
-apps="rdio cord firefox google-chrome gitx iterm2 virtualbox vlc sshfs ynab dropbox cyberduck bittorrent-sync daisydisk keepassx airfoil superduper wiretap-studio key-codes flash telegram"
+apps="osxfuse rdio cord firefox google-chrome gitx iterm2 virtualbox vlc sshfs ynab dropbox cyberduck bittorrent-sync daisydisk keepassx airfoil superduper wiretap-studio key-codes flash telegram ngrok"
 licensed_apps="default-folder-x cocktail postbox"
 progs_ruby="rbenv ruby-build rbenv-gemset rbenv-gem-rehash rbenv-bundler"
 quicklook_progs="qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package"

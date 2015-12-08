@@ -316,6 +316,8 @@ vnoremap / /\v
 nnoremap <leader>a :Ack <C-r><C-w>
 let g:ackprg='ag --vimgrep'
 
+imap fd <esc>
+
 " Git maps
 map <leader>gs :Gstatus<CR>
 map <leader>gc :Gcommit<CR>
