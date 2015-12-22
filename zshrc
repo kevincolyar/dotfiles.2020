@@ -7,6 +7,7 @@ fi
 . ~/.zsh/config
 . ~/.zsh/paths
 . ~/.zsh/rbenv
+. ~/.zsh/pyenv
 . ~/.zsh/docker
 
 fpath=(/usr/local/share/zsh-completions $fpath)

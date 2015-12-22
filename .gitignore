@@ -21,4 +21,6 @@ ssh/environment-*
 vim/spell
 lein/repl-history
 lein/self-installs
+lein/repl-port
 spacemacs.private
+.bin/ssh/*
