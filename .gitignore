@@ -22,4 +22,4 @@ vim/spell
 lein/repl-history
 lein/repl-port
 spacemacs.private
-.bin/ssh/*
+bin/ssh/*
