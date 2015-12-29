@@ -5,3 +5,4 @@
 *.swo
 tags
 vendor/rails
+nohup.out
