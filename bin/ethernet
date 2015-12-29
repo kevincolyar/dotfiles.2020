@@ -1,0 +1,2 @@
+#!/bin/sh
+scselect "Ethernet Only" > /dev/null

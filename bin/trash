@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+FILE=`basename $1`
+mv -v $1 ~/.Trash/$FILE
