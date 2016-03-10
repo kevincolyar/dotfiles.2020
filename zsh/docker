@@ -1,1 +1,5 @@
-eval `boot2docker shellinit 2>/dev/null`
+export DOCKER_MACHINE=$(docker-machine ls -q)
+
+if [ ! -z $DOCKER_MACHINE ]; then
+  eval $(docker-machine env $DOCKER_MACHINE)
+fi

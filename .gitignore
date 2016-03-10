@@ -11,6 +11,7 @@ weechat/irc.conf
 __*
 logs
 ssh/.auth*
+ssh/*.pub
 ssh/authorized_keys
 ssh/id_rsa*
 ssh/known_hosts

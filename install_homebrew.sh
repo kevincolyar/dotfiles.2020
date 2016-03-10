@@ -1,6 +1,6 @@
 #!/bin/bash
 
-progs_common="macvim zsh tmux readline most brew-cask dos2unix terminal-notifier ack htop markdown tree pt html2text sshuttle"
+progs_common="macvim zsh tmux readline most brew-cask dos2unix terminal-notifier ack htop markdown tree pt html2text sshuttle fasd"
 progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap"
 progs_docker="docker boot2docker docker-compose"
 progs_db="freetds --with-unixodbc"

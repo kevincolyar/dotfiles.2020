@@ -58,6 +58,7 @@ function pless() {
 alias gitx="/opt/homebrew-cask/Caskroom/gitx/latest/GitX.app/Contents/MacOS/GitX"
 alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
 alias cask="brew cask"
+alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 
 # ZPrezto Fixes
 alias rm='nocorrect rm'
