@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function link_file
 {
@@ -48,31 +48,7 @@ function link_dotfiles
   done
 }
 
-function install_vundle
-{
-  if [ ! -e $HOME/.vim/bundle/vundle ]
-  then
-    echo 'Installing Vundle'
-    git clone https://github.com/gmarik/vundle.vim.git $HOME/.vim/bundle/vundle
-  fi
-}
-
-function install_vim_bundles
-{
-  vim -c ":BundleClean!" -c ":BundleInstall" -c ":qa"
-}
-
-function install_fonts
-{
-  echo 'Install fonts'
-  cp fonts/* ~/Library/Fonts/
-}
-
-ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(fonts)'
+ignore_files='(LICENSE)|(install*)|(README)|(__)|(Rakefile)|(fonts)|(osx.sh)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
-install_vundle
-install_vim_bundles
-install_fonts
-# ./osx.sh

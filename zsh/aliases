@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 # cd
 alias ..='cd ..'
 
@@ -9,6 +11,12 @@ alias la='ls -lAGh'
 
 # less
 alias less="less -R"
+
+# apt
+
+alias ai='sudo apt-get install'
+alias au='sudo apt-get update'
+alias as='apt-cache search'
 
 # git
 alias gl='git pull'
@@ -55,8 +63,6 @@ function pless() {
 # alias vi='emacs'
 # alias ec='emacsclient'
 
-alias gitx="/opt/homebrew-cask/Caskroom/gitx/latest/GitX.app/Contents/MacOS/GitX"
-alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
 alias cask="brew cask"
 
 # ZPrezto Fixes
