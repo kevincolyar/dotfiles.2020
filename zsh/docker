@@ -1,5 +1,7 @@
-export DOCKER_MACHINE=$(docker-machine ls -q)
+if hash docker-machine 2>/dev/null; then
+  export DOCKER_MACHINE=$(docker-machine ls -q)
 
-if [ ! -z $DOCKER_MACHINE ]; then
-  eval $(docker-machine env $DOCKER_MACHINE)
+  if [ ! -z $DOCKER_MACHINE ]; then
+    eval $(docker-machine env $DOCKER_MACHINE)
+  fi
 fi
