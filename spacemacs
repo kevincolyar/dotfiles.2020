@@ -21,25 +21,28 @@
      git
      version-control
      syntax-checking
-     wakatime
+     ;; wakatime
      osx
      markdown
      clojure
      html
      javascript
+     ranger
      ruby
      ruby-on-rails
      yaml
+     python
      shell
      shell-scripts
      restclient
-     dash
-     (org :variables
-          org-enable-github-support t)
-     org-plus-contrib
+     spell-checking
+     command-log
+     (org :variables org-enable-github-support t)
+
+     ;; org-plus-contrib
      ;; csharp
-     ;; python
      ;; php
+     ;;      dash
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -88,7 +91,7 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro for Powerline"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 13
                                :weight normal
                                :width normal
@@ -155,7 +158,7 @@ before layers configuration."
    )
   ;; User initialization goes here
   (setq-default ruby-version-manager 'rbenv)
-  (setq-default ruby-enable-ruby-on-rails-support t)
+  ;; (setq-default ruby-enable-ruby-on-rails-support t)
   ;; (setq git-gutter-fr:side 'left-fringe)
   (setq clojure-enable-fancify-symbols t)
 
@@ -170,7 +173,7 @@ before layers configuration."
   (interactive)
   (indent-region (point-min) (point-max)))
 
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
@@ -203,6 +206,9 @@ layers configuration."
   ;; Enable line numbers for code buffers
   (add-hook 'prog-mode-hook 'linum-mode)
 
+  ;; Don't show hidden files - use 's' in project drawer to toggle
+  (setq neo-show-hidden-files nil)
+
   ;; Projectile
   (setq projectile-enable-caching nil)
 
@@ -210,7 +216,8 @@ layers configuration."
   (setq linum-format "%1d ")
 
   ;; Wakatime setup
-  (setq wakatime-python-bin "/usr/local/bin/python")
+  (setq wakatime-python-bin "$HOME/.pyenv/version/2.7.8/bin/python")
+
   (setq projectile-tags-command "/usr/local/bin/ctags -Re -f %s %s")
 
   ;; Fix backgrounding of emacs process
@@ -222,6 +229,7 @@ layers configuration."
   ;; Ruby key maps
   (evil-define-key 'insert enh-ruby-mode-map "\C-l" (kbd " => "))
   (evil-define-key 'normal enh-ruby-mode-map "\C-t" 'ruby-test-run)
+  (evil-define-key 'normal enh-ruby-mode-map "\C-l" 'ruby-test-run-at-point)
 
   (add-hook
    'enh-ruby-mode-hook
@@ -296,7 +304,7 @@ layers configuration."
  '(vc-annotate-very-old-color nil)
  '(wakatime-api-key "")
  '(wakatime-cli-path "/usr/local/bin/wakatime")
- '(wakatime-python-bin "")
+ '(wakatime-python-bin "$HOME/.pyenv/versions/2.7.8/bin/python")
  '(weechat-color-list
    (unspecified "#272822" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces

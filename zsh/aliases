@@ -64,6 +64,7 @@ function pless() {
 # alias ec='emacsclient'
 
 alias cask="brew cask"
+alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 
 # ZPrezto Fixes
 alias rm='nocorrect rm'
