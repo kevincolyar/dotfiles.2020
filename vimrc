@@ -70,7 +70,7 @@ call vundle#end()
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
-colorscheme jellybeans
+colorscheme dracula
 
 " Settings {{{
 
@@ -226,7 +226,7 @@ let g:syntastic_warning_symbol = "⚠"
 
 " Airline
 " let g:airline_powerline_fonts=1
-let g:airline_theme='dark'
+let g:airline_theme='dracula'
 " Airline - old vim-powerline symbols
 " let g:airline_left_sep = '⮀'
 " let g:airline_left_alt_sep = '⮁'

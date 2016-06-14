@@ -18,7 +18,10 @@
      ;; --------------------------------------------------------
      auto-completion
      better-defaults
-     git
+     evil-commentary
+     (git :variables
+          git-gutter-use-fringe nil)
+     ;; git
      version-control
      syntax-checking
      ;; wakatime
@@ -34,11 +37,12 @@
      python
      shell
      shell-scripts
-     restclient
      spell-checking
      command-log
+     kivy
      (org :variables org-enable-github-support t)
 
+     ;; restclient
      ;; org-plus-contrib
      ;; csharp
      ;; php
@@ -204,7 +208,12 @@ layers configuration."
   (setq vc-follow-symlinks t)
 
   ;; Enable line numbers for code buffers
-  (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'prog-mode-hook 'global-linum-mode)
+
+  ;; Add a space to the left
+  (unless (display-graphic-p)
+    ;; (setq linum-format " %1d "))
+    (setq linum-format (concat linum-format " ")))
 
   ;; Don't show hidden files - use 's' in project drawer to toggle
   (setq neo-show-hidden-files nil)
@@ -212,8 +221,8 @@ layers configuration."
   ;; Projectile
   (setq projectile-enable-caching nil)
 
-  ;; Add a space to the left
-  (setq linum-format "%1d ")
+  ;; Enable enhanced ruby
+  (setq ruby-enable-enh-ruby-mode t)
 
   ;; Wakatime setup
   (setq wakatime-python-bin "$HOME/.pyenv/version/2.7.8/bin/python")
@@ -230,6 +239,9 @@ layers configuration."
   (evil-define-key 'insert enh-ruby-mode-map "\C-l" (kbd " => "))
   (evil-define-key 'normal enh-ruby-mode-map "\C-t" 'ruby-test-run)
   (evil-define-key 'normal enh-ruby-mode-map "\C-l" 'ruby-test-run-at-point)
+
+  ;; Python key maps
+  (evil-define-key 'normal python-mode-map "\C-i" 'evil-jump-forward)
 
   (add-hook
    'enh-ruby-mode-hook
@@ -265,7 +277,7 @@ layers configuration."
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(fci-rule-color "#49483E" t)
  '(highlight-changes-colors ("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -302,9 +314,9 @@ layers configuration."
      (340 . "#2790C3")
      (360 . "#66D9EF"))))
  '(vc-annotate-very-old-color nil)
- '(wakatime-api-key "")
+ '(wakatime-api-key "" t)
  '(wakatime-cli-path "/usr/local/bin/wakatime")
- '(wakatime-python-bin "$HOME/.pyenv/versions/2.7.8/bin/python")
+ '(wakatime-python-bin "$HOME/.pyenv/versions/2.7.8/bin/python" t)
  '(weechat-color-list
    (unspecified "#272822" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces
@@ -312,5 +324,6 @@ layers configuration."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
