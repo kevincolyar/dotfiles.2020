@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    xdg-open $* 2>/dev/null
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    /usr/bin/open $*
+fi
+
