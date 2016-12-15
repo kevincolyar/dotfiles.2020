@@ -7,32 +7,32 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-cucumber'
+" Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-projectionist'
+" Plugin 'tpope/vim-git'
+" Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-endwise'
+" Plugin 'tpope/vim-unimpaired'
+" Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-vinegar'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
+" Plugin 'tpope/vim-dispatch'
+" Plugin 'tpope/vim-vinegar'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'edsono/vim-matchit'
-Plugin 'vim-scripts/AutoTag'
+" Plugin 'mileszs/ack.vim'
+" Plugin 'edsono/vim-matchit'
+" Plugin 'vim-scripts/AutoTag'
 Plugin 'tomtom/tComment_vim'
-Plugin 'derekwyatt/vim-fswitch'
-Plugin 'godlygeek/tabular'
-Plugin 'gregsexton/MatchTag'
-Plugin 'benmills/vimux'
-Plugin 'mattn/emmet-vim'
+" Plugin 'derekwyatt/vim-fswitch'
+" Plugin 'godlygeek/tabular'
+" Plugin 'gregsexton/MatchTag'
+" Plugin 'benmills/vimux'
+" Plugin 'mattn/emmet-vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'honza/dockerfile.vim'
+" Plugin 'honza/dockerfile.vim'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'wakatime/vim-wakatime'
+" Plugin 'wakatime/vim-wakatime'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -41,22 +41,22 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
 
 " Clojure
-Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-leiningen'
-Plugin 'tpope/vim-classpath'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'vim-scripts/paredit.vim'
+" Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-leiningen'
+" Plugin 'tpope/vim-classpath'
+" Plugin 'kien/rainbow_parentheses.vim'
+" Plugin 'vim-scripts/paredit.vim'
 
 " Misc
-Plugin 'msanders/cocoa.vim'
-Plugin 'vim-scripts/applescript.vim'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'msanders/cocoa.vim'
+" Plugin 'vim-scripts/applescript.vim'
+" Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-markdown'
-Plugin 'nelstrom/vim-markdown-folding'
+" Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'othree/html5.vim'
 
 " iTerm2+tmux
-Plugin 'sjl/vitality.vim'
+" Plugin 'sjl/vitality.vim'
 
 " Snippets
 if has("python")
@@ -454,11 +454,11 @@ autocmd BufNewFile,BufRead *.m set filetype=objc
 autocmd BufNewFile,BufRead *.xaml,*.bmml set filetype=xml
 
 " Clojure
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.cljx set filetype=clojure
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" autocmd BufNewFile,BufRead *.clj,*.cljs,*.cljx set filetype=clojure
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
 
 " Rspec/Cucumber
 autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>e :call RunNearestSpec()<cr>
