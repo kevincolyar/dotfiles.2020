@@ -8,8 +8,8 @@ export PATH="$HOME/.bin:$HOME/.bin/ssh:$HOME/.bin/mount:$PATH"
 export DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 
 # NPM
-export PATH=node_modules/.bin:$PATH
-export PATH=/usr/local/share/npm/bin:$PATH
+# export PATH=node_modules/.bin:$PATH
+# export PATH=/usr/local/share/npm/bin:$PATH
 
 # Homebrew
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"

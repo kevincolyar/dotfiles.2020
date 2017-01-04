@@ -12,31 +12,30 @@ Requirements
 Installation
 ============
 
-### On OSX:
-
 ```sh
-    git clone git://github.com/kevincolyar/dotfiles -b osx ~/.dotfiles
-```
-
-### On Debian:
-
-```sh
-    git clone git://github.com/kevincolyar/dotfiles -b debian ~/.dotfiles
+    git clone git://github.com/kevincolyar/dotfiles ~/.dotfiles
 ```
 
 ### Run installation script:
 
-```
-
+```sh
     cd ~/.dotfiles
     ./install.sh
 ```
 
+### Run system specific installation scripts:
+
+```sh
+    ./install_prezto.sh
+    ./install_vim.sh
+    ./install_spacemacs.sh
+    ./install_apt.sh
+    ./install_homebrew.sh
+````
 
 Preferred Software
 ==================
 
-* Vim
 * Tmux
 * Zsh
 
@@ -49,6 +48,6 @@ Download
 ===========
 ```sh
 
-  curl -L https://github.com/kevincolyar/dotfiles/tarball/__your_distro__ | tar zx
+  curl -L https://github.com/kevincolyar/dotfiles/tarball/master | tar zx
 
 ```
