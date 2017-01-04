@@ -71,3 +71,9 @@ alias cask="brew cask"
 alias rm='nocorrect rm'
 
 alias be='bundle exec'
+
+if [[ `uname` == "Linux" ]]
+then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
