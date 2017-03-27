@@ -33,6 +33,8 @@ Plugin 'airblade/vim-gitgutter'
 " Plugin 'honza/dockerfile.vim'
 Plugin 'nanotech/jellybeans.vim'
 " Plugin 'wakatime/vim-wakatime'
+"
+" Plugin 'yuttie/comfortable-motion.vim'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -316,7 +318,7 @@ vnoremap / /\v
 nnoremap <leader>a :Ack <C-r><C-w>
 let g:ackprg='ag --vimgrep'
 
-imap fd <esc>
+" imap fd <esc>
 
 " Git maps
 map <leader>gs :Gstatus<CR>

@@ -23,7 +23,9 @@
      ;;(git :variables
      ;;     git-gutter-use-fringe nil)
      git
-     version-control
+     ;; version-control
+     (version-control :variables
+                       version-control-diff-tool 'diff-hl)
      syntax-checking
      ;; wakatime
      osx
@@ -266,6 +268,10 @@ layers configuration."
   ;; Custom Spacemacs keys
   (evil-leader/set-key "ot" 'align-regexp)
   (evil-leader/set-key "oi" 'indent-buffer)
+
+  (setq org-directory "~/Dropbox/org")
+  (setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
+  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
   (load-file "~/.dotfiles/spacemacs.private")
 )
