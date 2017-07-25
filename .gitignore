@@ -25,3 +25,4 @@ lein/self-installs
 lein/repl-port
 spacemacs.private
 bin/ssh/*
+config/ranger/history
