@@ -1,6 +1,6 @@
 # vi: ft=zsh
 
-export EDITOR='emacs'
+export EDITOR='vim'
 #export GIT_EDITOR='emacs'
 
 # export TERM='xterm-256color'

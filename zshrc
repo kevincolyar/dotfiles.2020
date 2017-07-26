@@ -7,7 +7,7 @@ fi
 . ~/.zsh/config
 . ~/.zsh/paths
 . ~/.zsh/rbenv
-# . ~/.zsh/pyenv
+. ~/.zsh/pyenv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 compinit
