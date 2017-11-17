@@ -18,6 +18,9 @@ alias ai='sudo apt-get install'
 alias au='sudo apt-get update'
 alias as='apt-cache search'
 
+# grep
+alias grep='grep --color=auto'
+
 # git
 alias gl='git pull'
 alias gp='git push'
@@ -58,9 +61,7 @@ function pless() {
 }
 
 # alias vim='mvim -v'
-# alias vi='vim'
-# alias vim='emacs'
-# alias vi='emacs'
+alias vi='vim'
 # alias ec='emacsclient'
 alias emacs='emacs --no-window-system'
 

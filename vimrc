@@ -37,6 +37,9 @@ Plugin 'nanotech/jellybeans.vim'
 "
 " Plugin 'yuttie/comfortable-motion.vim'
 
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
+
 " Ruby
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
@@ -79,7 +82,7 @@ colorscheme dracula
 
 set shell=/bin/sh               " Ensure vim always runs from a shell, rvm needs this.
 set lazyredraw                  " Do not redraw while running macros (much faster) (LazyRedraw)
-set clipboard=unnamed           " Use the OSX pasteboard
+set clipboard^=unnamed,unnamedplus " System clipboard
 set cursorline                  " Highlight line curor is on
 set number                      " Show line numbers
 set history=1000                " Lots of history
