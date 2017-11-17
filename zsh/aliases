@@ -62,7 +62,9 @@ function pless() {
 # alias vim='emacs'
 # alias vi='emacs'
 # alias ec='emacsclient'
-alias emacs='emacs --no-window-system'
+# alias emacs='emacs --no-window-system'
+# alias emacs='emacsclient -t'
+alias emacs='emacsclient -t -a "" -s ${PWD##*/}'
 
 alias cask="brew cask"
 
