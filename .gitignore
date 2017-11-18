@@ -26,3 +26,6 @@ lein/repl-port
 spacemacs.private
 bin/ssh/*
 config/ranger/history
+config/ranger/bookmarks
+config/cmus
+config/htop

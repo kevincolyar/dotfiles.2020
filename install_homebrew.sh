@@ -1,10 +1,11 @@
 #!/bin/bash
 
-progs_common="vim zsh tmux readline most dos2unix terminal-notifier ack htop markdown tree pt html2text sshuttle fasd"
+progs_common="vim zsh tmux readline most dos2unix terminal-notifier ack htop markdown tree pt ripgrep pandoc html2text sshuttle fasd"
 progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap"
 progs_db="freetds --with-unixodbc"
 progs_sec="encfs nmap netcat autossh"
 progs_ruby="rbenv ruby-build rbenv-gemset rbenv-gem-rehash rbenv-bundler"
+progs_misc="cmus"
 
 apps="osxfuse google-chrome gitx iterm2 virtualbox vlc sshfs dropbox cyberduck keepassx key-codes flash ngrok wireshark musicbrainz-picard"
 apps_licensed="default-folder-x cocktail postbox daisydisk"
@@ -18,6 +19,7 @@ brew install $progs_dev && \
 brew install $progs_docker && \
 brew install $progs_sec && \
 brew install $progs_ruby
+brew install $progs_misc
 
 # Cask
 brew install cask
