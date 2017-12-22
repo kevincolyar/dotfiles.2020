@@ -29,3 +29,4 @@ config/ranger/history
 config/ranger/bookmarks
 config/cmus
 config/htop
+*.pyo
