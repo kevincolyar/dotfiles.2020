@@ -48,7 +48,8 @@ function link_dotfiles
   done
 }
 
-ignore_files='(LICENSE)|(install*)|(README)|(__)|(Rakefile)|(fonts)|(osx.sh)'
+ignore_files='(LICENSE)|(install*)|(README)|(__)|(Rakefile)|(fonts)|(config)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
+link_dotfiles `ls -d config/*`
