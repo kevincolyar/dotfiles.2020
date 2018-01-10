@@ -5,9 +5,10 @@ fi
 
 . ~/.zsh/aliases
 . ~/.zsh/config
-. ~/.zsh/paths
-. ~/.zsh/rbenv
-. ~/.zsh/pyenv
+
+if [[ -z $TMUX ]]; then
+  . ~/.zsh/paths
+fi
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 compinit

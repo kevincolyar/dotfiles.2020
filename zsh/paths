@@ -1,6 +1,3 @@
-# .bin
-export PATH="$HOME/.bin:$HOME/.bin/ssh:$HOME/.bin/mount:$PATH"
-
 # Oracle
 #export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
 #export DYLD_LIBRARY_PATH=$ORACLE_HOME
@@ -13,3 +10,6 @@ export DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 
 # Homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+# ~/bin
+export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/mount:$PATH"
