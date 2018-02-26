@@ -205,8 +205,8 @@ exec --no-startup-id blueman-applet
 # use `xinput` list to find device
 # use `xinput list-props <device>` to find properties
 # exec --no-startup-id xinput set-prop 11 273 1
-exec --no-startup-id xinput set-prop 11 274 1 # Enable tapping
-exec --no-startup-id xinput set-prop 11 284 1 # Enable natural scrolling
+exec --no-startup-id xinput set-prop 11 273 1 # Enable tapping
+exec --no-startup-id xinput set-prop 11 283 1 # Enable natural scrolling
 
 # Keyboard repeat speed
 exec --no-startup-id xset r rate 300 40
