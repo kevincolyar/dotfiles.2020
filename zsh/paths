@@ -7,6 +7,9 @@ export DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 # NPM
 # export PATH=node_modules/.bin:$PATH
 # export PATH=/usr/local/share/npm/bin:$PATH
+#
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # Homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
