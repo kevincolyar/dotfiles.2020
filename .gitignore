@@ -29,4 +29,5 @@ config/ranger/history
 config/ranger/bookmarks
 config/cmus
 config/htop
+config/transmission
 *.pyo

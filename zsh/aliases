@@ -4,10 +4,10 @@
 alias ..='cd ..'
 
 # ls
-alias ls="ls -FGh"
-alias l="ls -lAhG"
-alias ll="ls -lGh"
-alias la='ls -lAGh'
+alias ls="ls -FGh --color"
+alias l="ls -lAhG --color"
+alias ll="ls -lGh --color"
+alias la='ls -lAGh --color'
 
 # less
 alias less="less -R"
