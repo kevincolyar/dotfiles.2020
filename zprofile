@@ -29,10 +29,20 @@ typeset -gU cdpath fpath mailpath path
 # )
 
 # Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
+# path=(
+# #  /usr/local/{bin,sbin}
+#   $path
+# )
+
+
+# Homebrew
+export -U PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+# ~/bin
+export -U PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/mount:$PATH"
+
+# Oracle
+#export -U PATH=$PATH:$ORACLE_HOME
 
 #
 # Less

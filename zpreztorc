@@ -34,14 +34,12 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'homebrew' \
   'osx' \
   'ruby' \
-  'rails' \
   'git' \
   'python' \
+  'node' \
   'syntax-highlighting' \
-  'tmux' \
   'utility' \
   'prompt'
 

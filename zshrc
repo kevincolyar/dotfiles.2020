@@ -1,4 +1,20 @@
+#
+#!!!  PATH changes are in .zprofile !!!
+#
+# This file should contain only settings for interactive sessions
+#
+
+export EDITOR='vim'
+export GREP_COLOR='1;33'
+export PAGER='most'
+
+# Oracle
+#export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
+#export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export -U DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
+
 # Source Prezto.
+# This loads rbenv, pyenv, nvm into PATH
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
     source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
     compinit
@@ -6,7 +22,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
     # ZPrezto Fixes
     alias rm='nocorrect rm'
 fi
-
 
 export REPORTTIME=10 # print elapsed time when more than 10 seconds
 setopt NO_BG_NICE # don't nice background tasks
@@ -144,3 +159,5 @@ then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
 fi
+
+
