@@ -1,9 +1,14 @@
-#
+#-*- mode: sh -*-
+
 #!!!  PATH changes are in .zprofile !!!
 #
 # This file should contain only settings for interactive sessions
 #
 
+# Exports
+#-------------------------------------------------------------------------------------
+
+export PLATFORM=$(uname)
 export EDITOR='vim'
 export GREP_COLOR='1;33'
 export PAGER='most'
@@ -15,37 +20,15 @@ export -U DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 
 # Source Prezto.
 # This loads rbenv, pyenv, nvm into PATH
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-    source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-    compinit
-
-    # ZPrezto Fixes
-    alias rm='nocorrect rm'
-fi
+#if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+#    source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+#    compinit
+#
+#    # ZPrezto Fixes
+#    alias rm='nocorrect rm'
+#fi
 
 export REPORTTIME=10 # print elapsed time when more than 10 seconds
-setopt NO_BG_NICE # don't nice background tasks
-setopt NO_HUP
-setopt NO_LIST_BEEP
-setopt LOCAL_OPTIONS # allow functions to have local options
-setopt LOCAL_TRAPS # allow functions to have local traps
-setopt PROMPT_SUBST
-# setopt CORRECT
-unsetopt correct_all
-setopt COMPLETE_IN_WORD
-setopt IGNORE_EOF
-setopt rmstarsilent # Don't confirm `rm *
-
-zle -N newtab
-
-bindkey '^[^[[D' backward-word
-bindkey '^[^[[C' forward-word
-bindkey '^[[5D' beginning-of-line
-bindkey '^[[5C' end-of-line
-bindkey '^[[3~' delete-char
-bindkey '^[^N' newtab
-bindkey '^?' backward-delete-char
-bindkey -M viins 'fd' vi-cmd-mode
 
 # History settings
 export HISTSIZE=10000
@@ -53,6 +36,17 @@ export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh_history
 export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g"
 export KEYTIMEOUT=10  # Fixes vi-mode esc lag
+
+# http://hoelz.ro/blog/making-ssh_auth_sock-work-between-detaches-in-tmux
+if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/.auth_sock" ] ; then
+    unlink "$HOME/.ssh/.auth_sock" 2>/dev/null
+    ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/.auth_sock"
+    export SSH_AUTH_SOCK="$HOME/.ssh/.auth_sock"
+fi
+
+# Options
+#-------------------------------------------------------------------------------------
+
 setopt append_history
 setopt inc_append_history
 setopt extended_history
@@ -66,6 +60,33 @@ setopt no_hist_beep
 setopt hist_save_no_dups
 setopt hist_verify
 setopt share_history # share history between sessions ???
+setopt NO_BG_NICE # don't nice background tasks
+setopt NO_HUP
+setopt NO_LIST_BEEP
+setopt LOCAL_OPTIONS # allow functions to have local options
+setopt LOCAL_TRAPS # allow functions to have local traps
+setopt PROMPT_SUBST
+# setopt CORRECT
+unsetopt correct_all
+setopt COMPLETE_IN_WORD
+setopt IGNORE_EOF
+setopt rmstarsilent # Don't confirm `rm *
+setopt COMPLETE_ALIASES # autocompletion of command line switches for aliases
+
+# Key Bindings
+#-------------------------------------------------------------------------------------
+
+zle -N newtab
+
+bindkey '^[^[[D' backward-word
+bindkey '^[^[[C' forward-word
+bindkey '^[[5D' beginning-of-line
+bindkey '^[[5C' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[^N' newtab
+bindkey '^?' backward-delete-char
+bindkey -M viins 'fd' vi-cmd-mode
+
 
 # See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
 for keymap in v a; do
@@ -76,44 +97,29 @@ done
 # Turn off flow control to let <Ctrl-s> passthrough to vim
 stty -ixon
 
-# http://hoelz.ro/blog/making-ssh_auth_sock-work-between-detaches-in-tmux
-if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/.auth_sock" ] ; then
-  unlink "$HOME/.ssh/.auth_sock" 2>/dev/null
-  ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/.auth_sock"
-  export SSH_AUTH_SOCK="$HOME/.ssh/.auth_sock"
-fi
-
 # Aliases
+#-------------------------------------------------------------------------------------
 
-platform=$(uname)
-
-# cd
 alias ..='cd ..'
+alias less="less -R"
+alias grep='grep --color=auto'
 
-# ls
-if [[ "$platform" == "Linux" ]]; then
+if [[ "$PLATFORM" == "Linux" ]]; then
   alias ls="ls -FGh --color"
   alias l="ls -lAhG --color"
   alias ll="ls -lGh --color"
   alias la='ls -lAGh --color'
-elif [[ "$platform" == "Darwin" ]]; then
+elif [[ "$PLATFORM" == "Darwin" ]]; then
   alias ls="ls -FGh"
   alias l="ls -lAhG"
   alias ll="ls -lGh"
   alias la="ls -lAGh"
 fi
 
-# less
-alias less="less -R"
-
 # apt
-
 alias ai='sudo apt-get install'
 alias au='sudo apt-get update'
 alias as='apt-cache search'
-
-# grep
-alias grep='grep --color=auto'
 
 # git
 alias gl='git pull'
@@ -133,10 +139,6 @@ alias %=' '
 # Globbing issues
 alias curl='noglob curl'
 alias git='noglob git'
-
-# Force Tmux into utf mode
-#alias t='tmux -u'
-# alias tmux='tmux -u'
 
 # Syntax highlighting for cat and less
 alias pcat=pygmentize
@@ -160,4 +162,53 @@ then
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
+# Completion
+#-------------------------------------------------------------------------------------
+autoload -U compinit
+compinit
+zmodload -i zsh/complist
+setopt hash_list_all            # hash everything before completion
+setopt completealiases          # complete alisases
+setopt always_to_end            # when completing from the middle of a word, move the cursor to the end of the word
+setopt complete_in_word         # allow completion from within a word/phrase
+setopt correct                  # spelling correction for commands
+setopt list_ambiguous           # complete as much of a completion until it gets ambiguous.
 
+zstyle ':completion::complete:*' use-cache on               # completion caching, use rehash to clear
+zstyle ':completion:*' cache-path ~/.zsh/cache              # cache path
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # ignore case
+zstyle ':completion:*' menu select=2                        # menu if nb items > 2
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorz !
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate # list of completers to use
+
+# sections completion !
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format $'\e[00;34m%d'
+zstyle ':completion:*:messages' format $'\e[00;31m%d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=29=34"
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*' force-list always
+users=($USER root)
+zstyle ':completion:*' users $users
+
+#generic completion with --help
+compdef _gnu_generic gcc
+compdef _gnu_generic gdb
+
+# Fuzzy match
+zstyle ':completion:*' matcher-list '' \
+       'm:{a-z\-}={A-Z\_}' \
+       'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+       'r:|?=** m:{a-z\-}={A-Z\_}'
+
+# Load Prompt
+. $HOME/.zsh/steeef.zsh-theme
+
+# Reset prompt if we're on a dumb terminal (Emacs TRAMP)
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
