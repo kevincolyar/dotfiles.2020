@@ -214,4 +214,8 @@ zstyle ':completion:*' matcher-list '' \
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
 # Syntax Highlighting (MUST BE AT END OF .zshrc)
-. /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ "$PLATFORM" == "Linux" ]]; then
+  . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ "$PLATFORM" == "Darwin" ]]; then
+  . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
