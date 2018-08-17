@@ -269,6 +269,8 @@ layers configuration."
   (evil-leader/set-key "ot" 'align-regexp)
   (evil-leader/set-key "oi" 'indent-buffer)
 
+  (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+
   (setq org-directory "~/Dropbox/org")
   (setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
   (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")

@@ -150,7 +150,7 @@ function pless() {
 alias vi='vim'
 # alias ec='emacsclient'
 #alias emacs='emacs --no-window-system'
-alias emacs='emacsclient -t -a ""'
+#alias emacs='emacsclient -t -a ""'
 
 alias cask="brew cask"
 
@@ -212,3 +212,6 @@ zstyle ':completion:*' matcher-list '' \
 
 # Reset prompt if we're on a dumb terminal (Emacs TRAMP)
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+
+# Syntax Highlighting (MUST BE AT END OF .zshrc)
+. /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
