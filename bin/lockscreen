@@ -1,3 +1,9 @@
-#!/bin/sh
-# /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend
-pmset displaysleepnow
+#!/usr/bin/env bash
+
+set -e
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    i3lock -c 000000
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    pmset displaysleepnow
+fi
