@@ -28,6 +28,7 @@ export -U DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 #    alias rm='nocorrect rm'
 #fi
 
+
 export REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 # History settings
