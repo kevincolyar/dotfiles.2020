@@ -110,11 +110,13 @@ if [[ "$PLATFORM" == "Linux" ]]; then
   alias l="ls -lAhG --color"
   alias ll="ls -lGh --color"
   alias la='ls -lAGh --color'
+  alias du="ncdu -rr -x --exclude .git --exclude node_modules"
 elif [[ "$PLATFORM" == "Darwin" ]]; then
   alias ls="ls -FGh"
   alias l="ls -lAhG"
   alias ll="ls -lGh"
   alias la="ls -lAGh"
+  alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 fi
 
 # apt

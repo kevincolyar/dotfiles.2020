@@ -53,6 +53,7 @@ export NVM_DIR="$HOME/.nvm"
 path=(
   # $HOME/.rbenv/bin
   # $PYENV_ROOT/bin
+  ./node_modules/.bin
   $HOME/bin
   $HOME/bin/ssh
   $HOME/bin/mount
