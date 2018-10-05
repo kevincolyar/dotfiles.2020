@@ -36,16 +36,29 @@ typeset -gU cdpath fpath mailpath path
 #   $path
 # )
 
+# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
+eval "$(pyenv init -)"
+
+# rbenv
+eval "$(rbenv init - --no-rehash)"
+
+# nvm
+# !!! This is a source of some shell startup slowness
+# !!! Make sure node is not installed via brew or apt
+# !!! TODO: Force zsh to push nvm node path in front of /usr/bin /usr/local/bin
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 path=(
-  $HOME/.rbenv/bin
-  $PYENV_ROOT/bin
+  # $HOME/.rbenv/bin
+  # $PYENV_ROOT/bin
+  ./node_modules/.bin
   $HOME/bin
   $HOME/bin/ssh
   $HOME/bin/mount
-  /usr/local/{bin,sbin}
   #$ORACLE_HOME
+  # /usr/local/{bin,sbin}
   $path
 )
 
@@ -75,28 +88,4 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
-fi
-
-eval "$(rbenv init - --no-rehash)"
-eval "$(pyenv init -)"
-
- export NVM_DIR="$NVM_DIR"
-
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
-# https://github.com/creationix/nvm/issues/1277
-if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence -w __init_nvm)" = function ]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-    declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-    function __init_nvm() {
-        for i in "${__node_commands[@]}"; do unalias $i; done
-        . "$NVM_DIR"/nvm.sh
-        unset __node_commands
-        unset -f __init_nvm
-    }
-    for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
