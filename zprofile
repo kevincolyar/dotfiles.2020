@@ -36,12 +36,7 @@ typeset -gU cdpath fpath mailpath path
 #   $path
 # )
 
-# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-
-# rbenv
-eval "$(rbenv init - --no-rehash)"
 
 # nvm
 # !!! This is a source of some shell startup slowness
@@ -51,8 +46,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 path=(
-  # $HOME/.rbenv/bin
-  # $PYENV_ROOT/bin
+  $HOME/.rbenv/bin
+  $PYENV_ROOT/bin
   ./node_modules/.bin
   $HOME/bin
   $HOME/bin/ssh
@@ -61,6 +56,12 @@ path=(
   # /usr/local/{bin,sbin}
   $path
 )
+#
+# pyenv
+eval "$(pyenv init -)"
+
+# rbenv
+eval "$(rbenv init - --no-rehash)"
 
 #
 # Less
