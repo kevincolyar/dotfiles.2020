@@ -53,6 +53,7 @@ path=(
   $HOME/bin/ssh
   $HOME/bin/mount
   #$ORACLE_HOME
+  /usr/local/sbin
   # /usr/local/{bin,sbin}
   $path
 )
