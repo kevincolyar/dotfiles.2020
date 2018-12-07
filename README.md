@@ -26,11 +26,11 @@ Installation
 ### Run system specific installation scripts:
 
 ```sh
-    ./install_prezto.sh
+    ./install_apt.sh
+    ./install_tpm.sh
+    ./install_homebrew.sh
     ./install_vim.sh
     ./install_spacemacs.sh
-    ./install_apt.sh
-    ./install_homebrew.sh
 ````
 
 Preferred Software
