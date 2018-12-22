@@ -11,7 +11,8 @@
 export PLATFORM=$(uname)
 export EDITOR='vim'
 export GREP_COLOR='1;33'
-export PAGER='most'
+# export PAGER='most'
+export PAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # Oracle
 #export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
