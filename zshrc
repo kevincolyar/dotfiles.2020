@@ -222,3 +222,9 @@ if [[ "$PLATFORM" == "Linux" ]]; then
 elif [[ "$PLATFORM" == "Darwin" ]]; then
   . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+if [[ "$PLATFORM" == "Linux" ]]; then
+  # Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
+  # https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
+  keychain --nogui id_rsa --quiet
+fi
