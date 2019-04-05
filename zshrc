@@ -223,3 +223,5 @@ if [[ "$PLATFORM" == "Linux" ]]; then
 elif [[ "$PLATFORM" == "Darwin" ]]; then
   . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
