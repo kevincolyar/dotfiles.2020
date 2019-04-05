@@ -222,6 +222,7 @@ if [[ "$PLATFORM" == "Linux" ]]; then
   . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ "$PLATFORM" == "Darwin" ]]; then
   . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  fpath=(/usr/local/share/zsh-completions $fpath)
 fi
 
 if [[ "$PLATFORM" == "Linux" ]]; then
@@ -229,3 +230,5 @@ if [[ "$PLATFORM" == "Linux" ]]; then
   # https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
   keychain --nogui id_rsa --quiet
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
