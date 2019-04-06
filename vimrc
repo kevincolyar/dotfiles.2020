@@ -37,6 +37,7 @@ Plugin 'nanotech/jellybeans.vim'
 "
 " Plugin 'yuttie/comfortable-motion.vim'
 
+Plugin 'jamessan/vim-gnupg'
 Plugin 'jceb/vim-orgmode'
 Plugin 'tpope/vim-speeddating'
 

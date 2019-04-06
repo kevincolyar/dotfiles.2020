@@ -217,15 +217,25 @@ zstyle ':completion:*' matcher-list '' \
 # Reset prompt if we're on a dumb terminal (Emacs TRAMP)
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
+if [[ "$PLATFORM" == "Linux" ]]; then
+  # Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
+  # https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
+  keychain --nogui id_rsa --quiet
+fi
+
+# Command-line Fuzzy Finder (eg, command history)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
+# https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
+if [[ "$PLATFORM" == "Linux" ]]; then
+  keychain --nogui id_rsa --quiet
+fi
+
 # Syntax Highlighting (MUST BE AT END OF .zshrc)
 if [[ "$PLATFORM" == "Linux" ]]; then
   . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ "$PLATFORM" == "Darwin" ]]; then
   . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-if [[ "$PLATFORM" == "Linux" ]]; then
-  # Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
-  # https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
-  keychain --nogui id_rsa --quiet
+  fpath=(/usr/local/share/zsh-completions $fpath)
 fi
