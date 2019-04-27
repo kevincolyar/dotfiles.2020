@@ -14,10 +14,11 @@ order += "battery 0"
 #order += "cpu_temperature 0"
 order += "load"
 order += "tztime local"
+order += "volume master"
 
 wireless wlp2s0 {
   format_up = "W: (%quality at %essid, %bitrate) %ip"
-    format_down = "W: down"
+  format_down = "Wifi: down"
 }
 
 ethernet enp0s25 {
@@ -72,4 +73,12 @@ cpu_temperature 0 {
 
 disk "/" {
   format = "%free"
+}
+
+volume master {
+  format = "🔊 %volume"
+  format_muted = "🔊 %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
 }
