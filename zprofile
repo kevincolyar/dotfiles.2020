@@ -35,6 +35,16 @@ typeset -gU cdpath fpath mailpath path
 # #  /usr/local/{bin,sbin}
 #   $path
 # )
+#
+
+find-up () {
+  path=$(pwd)
+
+  while [[ "$path" != "" ]]; do
+    [ -e "$path/$1" ] && echo $path/$1 && return
+    path=${path%/*}
+  done
+}
 
 export PYENV_ROOT="$HOME/.pyenv"
 
@@ -42,8 +52,15 @@ export PYENV_ROOT="$HOME/.pyenv"
 # !!! This is a source of some shell startup slowness
 # !!! Make sure node is not installed via brew or apt
 # !!! TODO: Force zsh to push nvm node path in front of /usr/bin /usr/local/bin
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+node_version=$(find-up package.json)
+if [[ ! -z $node_version ]]; then
+  echo "Loading nvm $node_version"
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
 
 path=(
   $HOME/.rbenv/bin
@@ -59,10 +76,18 @@ path=(
 )
 #
 # pyenv
-eval "$(pyenv init -)"
+python_version=$(find-up .python-version)
+if [[ ! -z $python_version ]]; then
+  echo "Loading pyenv $python_version"
+  eval "$(pyenv init -)"
+fi
 
 # rbenv
-eval "$(rbenv init - --no-rehash)"
+ruby_version=$(find-up .ruby-version)
+if [[ ! -z $ruby_version ]]; then
+  echo "Loading rbenv $ruby_version"
+  eval "$(rbenv init - --no-rehash)"
+fi
 
 #
 # Less
