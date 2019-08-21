@@ -55,13 +55,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-node_version=$(find-up package.json)
-if [[ ! -z $node_version ]]; then
-  echo "Loading nvm $node_version"
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
-
 path=(
   $HOME/.rbenv/bin
   $PYENV_ROOT/bin
@@ -71,23 +64,32 @@ path=(
   $HOME/bin/mount
   #$ORACLE_HOME
   /usr/local/sbin
-  # /usr/local/{bin,sbin}
+  /usr/local/{bin,sbin}
   $path
 )
-#
-# pyenv
-python_version=$(find-up .python-version)
-if [[ ! -z $python_version ]]; then
-  echo "Loading pyenv $python_version"
-  eval "$(pyenv init -)"
-fi
 
-# rbenv
-ruby_version=$(find-up .ruby-version)
-if [[ ! -z $ruby_version ]]; then
-  echo "Loading rbenv $ruby_version"
-  eval "$(rbenv init - --no-rehash)"
-fi
+dev() {
+  # pyenv
+  python_version=$(find-up .python-version)
+  if [[ ! -z $python_version ]]; then
+    echo "Loading pyenv $python_version"
+    eval "$(pyenv init -)"
+  fi
+
+  # rbenv
+  ruby_version=$(find-up .ruby-version)
+  if [[ ! -z $ruby_version ]]; then
+    echo "Loading rbenv $ruby_version"
+    eval "$(rbenv init - --no-rehash)"
+  fi
+
+  node_version=$(find-up package.json)
+  if [[ ! -z $node_version ]]; then
+    echo "Loading nvm $node_version"
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  fi
+}
 
 #
 # Less
