@@ -61,6 +61,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'plasticboy/vim-markdown'
 " Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'othree/html5.vim'
+Plugin 'jamessan/vim-gnupg'
 
 " iTerm2+tmux
 " Plugin 'sjl/vitality.vim'

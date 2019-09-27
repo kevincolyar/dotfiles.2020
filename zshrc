@@ -135,7 +135,7 @@ alias as='apt-cache search'
 # git
 alias gl='git pull'
 alias gp='git push'
-alias gd='git diff'
+alias gd='git difftool'
 alias gc='git commit'
 alias gca='git commit -a'
 alias gco='git checkout'
@@ -226,16 +226,13 @@ if [[ "$PLATFORM" == "Linux" ]]; then
   # Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
   # https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
   keychain --nogui id_rsa --quiet
+
+  # Make GPG Agent available
+  gpg-agent --quiet
 fi
 
 # Command-line Fuzzy Finder (eg, command history)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Debian keychain. Adds ssh key ssh-agent. Allows cronjobs to use ssh-agent
-# https://stackoverflow.com/questions/869589/why-ssh-fails-from-crontab-but-succedes-when-executed-from-a-command-line
-if [[ "$PLATFORM" == "Linux" ]]; then
-  keychain --nogui id_rsa --quiet
-fi
 
 # Syntax Highlighting (MUST BE AT END OF .zshrc)
 if [[ "$PLATFORM" == "Linux" ]]; then
