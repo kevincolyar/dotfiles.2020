@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(sql
      csv
      restclient
      ;; ----------------------------------------------------------------
@@ -66,13 +66,21 @@ values."
      osx
      clojure
      html
-     ranger
+     docker
+     (ranger :variables
+             ranger-show-preview t
+             ranger-show-hidden t
+             ranger-cleanup-eagerly t
+             ranger-cleanup-on-disable t
+             ranger-ignored-extensions '("mkv" "flv" "iso" "mp4" "DS_Store"))
      yaml
      python
      pandoc
      latex
      csharp
      typescript
+     dash
+     speed-reading
      ;; kivy
      )
    ;; List of additional packages that will be installed without being
