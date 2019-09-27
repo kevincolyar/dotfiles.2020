@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    xdg-open $* 2>/dev/null
+  for p in "$*"; do
+    xdg-open $p 2>/dev/null
+  done
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    /usr/bin/open $*
+  for p in "$*"; do
+    /usr/bin/open "$p"
+  done
 fi
 
