@@ -9,14 +9,19 @@
 # layout, use the i3-config-wizard
 #
 
-set $mod Mod4
+# Modifier = Alt, Super = Windows Key
+set $mod Mod1
+set $up Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-font pango: M+ 1m, FontAwesome, Ionicons, 8
+# font pango:DejaVu Sans Mono 8
+# font pango: M+ 1m, FontAwesome, Ionicons, 8
+# font pango:System San Francisco Display 8
+# font pango:System San Francisco Display, Font Awesome 5 Free 9
+font pango:Source Code Variable 9
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -206,6 +211,7 @@ exec xmodmap ~/.Xmodmap
 exec --no-startup-id dropbox start
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id volti
 
 # use `xinput` list to find device
 # use `xinput list-props <device>` to find properties
