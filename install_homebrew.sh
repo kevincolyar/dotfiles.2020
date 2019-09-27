@@ -1,7 +1,7 @@
 #!/bin/bash
 
 progs_common="vim zsh tmux readline most dos2unix terminal-notifier ack htop markdown tree pt ripgrep pandoc html2text sshuttle fasd ncdu"
-progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap diff-so-fancy"
+progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap diff-so-fancy editorconfig"
 progs_db="freetds --with-unixodbc"
 progs_sec="encfs nmap netcat autossh"
 progs_ruby="rbenv ruby-build rbenv-gemset rbenv-gem-rehash rbenv-bundler"
