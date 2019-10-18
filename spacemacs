@@ -31,13 +31,9 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     sql
      csv
      restclient
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      helm
      auto-completion
      better-defaults
@@ -50,8 +46,6 @@ values."
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
-     ;; (version-control :variables
-     ;;                  version-control-diff-tool 'git-gutter+)
      version-control
      (ruby :variables
            ruby-enable-enh-ruby-mode t
@@ -66,20 +60,27 @@ values."
      osx
      clojure
      html
-     ranger
+     docker
+     (ranger :variables
+             ranger-show-preview t
+             ranger-show-hidden t
+             ranger-cleanup-eagerly t
+             ranger-cleanup-on-disable t
+             ranger-ignored-extensions '("mkv" "flv" "iso" "mp4" "DS_Store"))
      yaml
      python
      pandoc
      latex
-     csharp
      typescript
+     ;; csharp
+     ;; dash
+     ;; speed-reading
      ;; kivy
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(osx-clipboard)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -339,158 +340,86 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-    (setq powerline-default-separator nil)
-    ;; (default-key evil-normal-state-map "\C-s" 'save-buffer)
+  ;; Load private config
+  (load-file (expand-file-name "$HOME/.spacemacs.private"))
 
-    (add-hook 'python-mode-hook (lambda ()
-                                 (flycheck-mode 1)
-                                 (semantic-mode 1)
-                                 (setq flycheck-checker 'python-pylint
-                                  flycheck-checker-error-threshold 900
-                                  ;; flycheck-pylintrc "~/.pylintrc"
-                                  )))
+  (setq powerline-default-separator nil)
+  ;; (default-key evil-normal-state-map "\C-s" 'save-buffer)
 
-    (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+  (add-hook
+   'python-mode-hook
+   (lambda ()
+     (flycheck-mode 1)
+     (semantic-mode 1)
+     (setq flycheck-checker 'python-pylint
+           flycheck-checker-error-threshold 900
+           ;; flycheck-pylintrc "~/.pylintrc"
+           )))
 
-    (define-key evil-motion-state-map [?\C-i] 'evil-jump-forward)
+  (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
-    (setq org-confirm-babel-evaluate nil)
-    (setq org-highlight-latex-and-related '(latex python))
-    (setq org-directory "~/Dropbox/org")
-    (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
-             "* TODO %?\n  %i\n  %a")
-            ("j" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-             "* %?\nEntered on %U\n  %i\n  %a")))
+  (define-key evil-motion-state-map [?\C-i] 'evil-jump-forward)
 
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-highlight-latex-and-related '(latex python))
 
-    (setq git-gutter+-modified-sign "~")
+  (setq git-gutter+-modified-sign "~")
 
-    (setq
-     standard-indent 2
-     tab-width 2
-     indent-tabs-mode nil
-     js-indent-level 2
-     js2-basic-offset 2
-     js2-strict-semi-warning nil
-     js2-missing-semi-one-line-override nil
-     web-mode-markup-indent-offset 2
-     web-mode-css-indent-offset 2
-     web-mode-code-indent-offset 2
-     web-mode-indent-style 2
-    )
+  (setq
+   standard-indent 2
+   tab-width 2
+   indent-tabs-mode nil
+   js-indent-level 2
+   js2-basic-offset 2
+   js2-strict-semi-warning nil
+   js2-missing-semi-one-line-override nil
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-indent-style 2
+   lisp-indent-offset 2
+   )
 
-    (defun setup-tide-mode ()
-     (interactive)
-     (tide-setup)
-     (flycheck-mode +1)
-     (setq flycheck-check-syntax-automatically '(save mode-enabled))
-     (eldoc-mode +1)
-     (tide-hl-identifier-mode +1)
-     ;; company is an optional dependency. You have to
-     ;; install it separately via package-install
-     ;; `M-x package-install [ret] company`
-     (company-mode +1))
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
 
-    ;; aligns annotation to the right hand side
-    (setq company-tooltip-align-annotations t)
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
 
-    ;; formats the buffer before saving
-    (add-hook 'before-save-hook 'tide-format-before-save)
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
 
-    (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-    ;; TSX
-    (require 'web-mode)
-    (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-    (add-hook 'web-mode-hook
-     (lambda ()
-      (when (string-equal "tsx" (file-name-extension buffer-file-name))
-       (setup-tide-mode))))
-    ;; enable typescript-tslint checker
+  ;; TSX
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; enable typescript-tslint checker
 
-    ;; Javascript
-    ;; (add-hook 'js2-mode-hook #'setup-tide-mode)
-    ;; configure javascript-tide checker to run after your default javascript checker
+  ;; Javascript
+  ;; (add-hook 'js2-mode-hook #'setup-tide-mode)
+  ;; configure javascript-tide checker to run after your default javascript checker
 
-    ;; JSX
-    ;; (require 'web-mode)
-    ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-    ;; (add-hook 'web-mode-hook
-    ;;  (lambda ()
-    ;;   (when (string-equal "jsx" (file-name-extension buffer-file-name))
-    ;;    (setup-tide-mode))))
-    ;; configure jsx-tide checker to run after your default jsx checker
-
-
-    ;; MacOS Copy/Paste Fix
-    (use-package osx-clipboard
-     :commands
-     (osx-clipboard-paste-function osx-clipboard-cut-function))
-
-    (defun aj/select-text (text &rest ignore)
-     (if (display-graphic-p)
-      (gui-select-text text)
-      (osx-clipboard-cut-function text)))
-
-    (defun aj/selection-value ()
-     (if (display-graphic-p)
-      (gui-selection-value)
-      (osx-clipboard-paste-function)))
-
-    (setq interprogram-cut-function 'aj/select-text
-     interprogram-paste-function 'aj/selection-value)
-
-    (provide 'init-macos-terminal-copy-paste)
+  ;; JSX
+  ;; (require 'web-mode)
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  ;; (add-hook 'web-mode-hook
+  ;;  (lambda ()
+  ;;   (when (string-equal "jsx" (file-name-extension buffer-file-name))
+  ;;    (setup-tide-mode))))
+  ;; configure jsx-tide checker to run after your default jsx checker
 
   )
-
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/org/home.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dcpud.org")))
- '(package-selected-packages
-   (quote
-    (tide typescript-mode sesman enh-ruby-mode csv-mode org-category-capture ghub let-alist org-mime xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help omnisharp shut-up csharp-mode company-auctex auctex-latexmk auctex pandoc-mode ox-pandoc ht restclient-helm ob-restclient company-restclient ob-http restclient know-your-http-well powerline rake pcre2el alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode projectile request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flyspell-correct pos-tip flycheck flx magit magit-popup git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree diminish web-completion-data dash-functional tern company hydra inflections edn multiple-cursors paredit peg eval-sexp-fu highlight cider seq spinner queue pkg-info clojure-mode epl inf-ruby bind-map bind-key yasnippet anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup neotree macrostep evil-nerd-commenter elisp-slime-nav define-word auto-compile packed yapfify yaml-mode ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org tagedit sql-indent spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode pbcopy paradox ox-gfm osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file mwim move-text mmm-mode minitest markdown-toc magit-gitflow lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc insert-shebang info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu emmet-mode dumb-jump diff-hl cython-mode company-web company-tern company-statistics company-shell company-anaconda command-log-mode column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/org/home.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dcpud.org")))
- '(package-selected-packages
-   (quote
-    (writeroom-mode visual-fill-column tide typescript-mode sesman enh-ruby-mode csv-mode org-category-capture ghub let-alist org-mime xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help omnisharp shut-up csharp-mode company-auctex auctex-latexmk auctex pandoc-mode ox-pandoc ht restclient-helm ob-restclient company-restclient ob-http restclient know-your-http-well powerline rake pcre2el alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode projectile request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flyspell-correct pos-tip flycheck flx magit magit-popup git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree diminish web-completion-data dash-functional tern company hydra inflections edn multiple-cursors paredit peg eval-sexp-fu highlight cider seq spinner queue pkg-info clojure-mode epl inf-ruby bind-map bind-key yasnippet anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup neotree macrostep evil-nerd-commenter elisp-slime-nav define-word auto-compile packed yapfify yaml-mode ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org tagedit sql-indent spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode pbcopy paradox ox-gfm osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file mwim move-text mmm-mode minitest markdown-toc magit-gitflow lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc insert-shebang info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu emmet-mode dumb-jump diff-hl cython-mode company-web company-tern company-statistics company-shell company-anaconda command-log-mode column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)

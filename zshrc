@@ -90,6 +90,12 @@ bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
 bindkey -M viins 'fd' vi-cmd-mode
 
+# Vim Mode
+bindkey -v
+
+# Edit command line with ctrl-e
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
 for keymap in v a; do
@@ -145,11 +151,8 @@ alias %=' '
 alias curl='noglob curl'
 alias git='noglob git'
 
-# Syntax highlighting for cat and less
-alias pcat=pygmentize
-function pless() {
-  pcat "$1" | less -R
-}
+# Bat instead of cat
+alias cat='bat'
 
 # alias vim='mvim -v'
 alias vi='vim'
