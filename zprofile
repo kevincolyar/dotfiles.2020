@@ -83,11 +83,12 @@ dev() {
     eval "$(rbenv init - --no-rehash)"
   fi
 
-  node_version=$(find-up package.json)
+  node_version=$(find-up .nvmrc)
   if [[ ! -z $node_version ]]; then
     echo "Loading nvm $node_version"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm use
   fi
 }
 

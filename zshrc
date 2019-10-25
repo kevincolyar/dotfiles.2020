@@ -38,7 +38,7 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh_history
 export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g"
-export KEYTIMEOUT=10  # Fixes vi-mode esc lag
+export KEYTIMEOUT=5  # Fixes vi-mode esc lag
 
 # http://hoelz.ro/blog/making-ssh_auth_sock-work-between-detaches-in-tmux
 if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/.auth_sock" ] ; then
