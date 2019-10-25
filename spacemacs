@@ -341,7 +341,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; Load private config
-  (load-file (expand-file-name "$HOME/.spacemacs.private"))
+  (load-file (expand-file-name "~/.spacemacs.private"))
 
   (setq powerline-default-separator nil)
   ;; (default-key evil-normal-state-map "\C-s" 'save-buffer)
