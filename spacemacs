@@ -396,7 +396,7 @@ you should place your code here."
   (setq company-tooltip-align-annotations t)
 
   ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'tide-format-before-save)
+  ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
@@ -407,6 +407,7 @@ you should place your code here."
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
                 (setup-tide-mode))))
+
   ;; enable typescript-tslint checker
 
   ;; Javascript
