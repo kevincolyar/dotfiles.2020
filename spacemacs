@@ -31,6 +31,10 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; Language Server Protocol
+     ;; Enables auto-completion in many languages
+     (lsp :variables
+          lsp-prefer-flymake t)
      sql
      csv
      restclient
@@ -52,14 +56,22 @@ values."
            ruby-version-manager 'rbenv
            ruby-test-runner 'rspec)
      ruby-on-rails
-     javascript
-     react
-     tern
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-lsp-linter nil) ;; Don't use lsp for linting, use eslint instead
+      (typescript :variables
+                  typescript-backend 'lsp
+                  typescript-lsp-linter nil) ;; Don't use lsp for linting, use eslint instead
+     (react :variables
+            react-backend 'lsp)
      web-beautify
      prettier
      osx
      clojure
-     html
+     (html :variables
+           css-enable-lsp t
+           html-enable-lsp t
+     )
      docker
      (ranger :variables
              ranger-show-preview t
@@ -71,11 +83,8 @@ values."
      python
      pandoc
      latex
-     typescript
-     ;; csharp
+     csharp
      ;; dash
-     ;; speed-reading
-     ;; kivy
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -351,11 +360,13 @@ you should place your code here."
    (lambda ()
      (flycheck-mode 1)
      (semantic-mode 1)
-     (setq flycheck-checker 'python-pylint
-           flycheck-checker-error-threshold 900
+     ;;(setq flycheck-checker 'python-pylint
+      ;;     flycheck-checker-error-threshold 900
            ;; flycheck-pylintrc "~/.pylintrc"
-           )))
+           ;;)
+           ))
 
+  ;; Fix for opening TRAMP ssh files
   (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
   (define-key evil-motion-state-map [?\C-i] 'evil-jump-forward)
@@ -363,6 +374,7 @@ you should place your code here."
   (setq org-confirm-babel-evaluate nil)
   (setq org-highlight-latex-and-related '(latex python))
 
+  ;; Fix for emacs terminal
   (setq git-gutter+-modified-sign "~")
 
   (setq
