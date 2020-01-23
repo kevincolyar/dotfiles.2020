@@ -109,21 +109,33 @@ stty -ixon
 # Aliases
 #-------------------------------------------------------------------------------------
 
+# Bat instead of cat
+alias cat='bat'
+
+# Exa instead of ls
+alias ls="exa --git"
+alias l="exa -lg"
+alias ll="exa -lg"
+
 alias ..='cd ..'
 alias less="less -R"
 alias grep='grep --color=auto'
 
 if [[ "$PLATFORM" == "Linux" ]]; then
-  alias ls="ls -FGh --color"
-  alias l="ls -lAhG --color"
-  alias ll="ls -lGh --color"
-  alias la='ls -lAGh --color'
+  if ! type exa >> /dev/null; then
+    alias ls="ls -FGh --color"
+    alias l="ls -lAhG --color"
+    alias ll="ls -lGh --color"
+    alias la='ls -lAGh --color'
+  fi
   alias du="ncdu -rr -x --exclude .git --exclude node_modules"
 elif [[ "$PLATFORM" == "Darwin" ]]; then
-  alias ls="ls -FGh"
-  alias l="ls -lAhG"
-  alias ll="ls -lGh"
-  alias la="ls -lAGh"
+  if ! type exa > /dev/null; then
+    alias ls="ls -FGh"
+    alias l="ls -lAhG"
+    alias ll="ls -lGh"
+    alias la="ls -lAGh"
+  fi
   alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 fi
 
@@ -144,25 +156,18 @@ alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias git_diff='git diff --no-ext-diff -w "$@" | vim -R -'
 
-# commands starting with % for pasting from web
+# Other
+alias vi='vim'
+alias cask="brew cask"
+alias be='noglob bundle exec'
+
+# Commands starting with % for pasting from web
 alias %=' '
 
 # Globbing issues
 alias curl='noglob curl'
+alias wget='noglob wget'
 alias git='noglob git'
-
-# Bat instead of cat
-alias cat='bat'
-
-# alias vim='mvim -v'
-alias vi='vim'
-# alias ec='emacsclient'
-#alias emacs='emacs --no-window-system'
-#alias emacs='emacsclient -t -a ""'
-
-alias cask="brew cask"
-
-alias be='bundle exec'
 
 if [[ `uname` == "Linux" ]]
 then
@@ -172,6 +177,12 @@ fi
 
 # Completion
 #-------------------------------------------------------------------------------------
+
+# Homebrew completion
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
 compinit
