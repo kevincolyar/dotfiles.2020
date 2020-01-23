@@ -3,7 +3,7 @@
 set -e
 
 progs_common="coreutils vim emacs zsh zsh-completions tmux readline most dos2unix terminal-notifier ack htop markdown tree pt ripgrep pandoc html2text sshuttle fasd ncdu ngrep"
-progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap diff-so-fancy bat"
+progs_dev="git kitematic ctags mysql rabbitmq node unixodbc leiningen rlwrap diff-so-fancy bat exa"
 progs_db="freetds --with-unixodbc"
 progs_sec="encfs nmap netcat autossh ipcalc nikto"
 progs_ruby="rbenv ruby-build rbenv-gemset rbenv-gem-rehash rbenv-bundler"
