@@ -47,6 +47,7 @@ This function should only modify configuration layer settings."
      helm
      auto-completion
      better-defaults
+     major-modes ;; arduino, etc
      emacs-lisp
      git
      markdown
@@ -242,7 +243,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+                               :size 13.0
                                :weight normal
                                :width normal)
 
@@ -489,8 +490,8 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
     ;; https://blog.vifortech.com/posts/emacs-tls-fix/
-    (require 'gnutls)
-    (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
+    ;; (require 'gnutls)
+    ;; (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
   )
 
 (defun dotspacemacs/user-load ()
