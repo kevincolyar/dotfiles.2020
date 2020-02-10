@@ -50,7 +50,8 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-want-todo-bindings t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -528,7 +529,10 @@ you should place your code here."
   ;; Fix for opening TRAMP ssh files
   (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
-  (define-key evil-motion-state-map [?\C-i] 'evil-jump-forward)
+  ;; Map Ctrl-i to typical vim functionality and enable TAB functionality in org mode
+  ;; since TAB and Ctrl-i are congruent in the terminal
+  (define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
+  (evil-define-key 'normal org-mode-map (kbd "C-i") 'org-cycle)
 
   (setq org-confirm-babel-evaluate nil)
   (setq org-highlight-latex-and-related '(latex python))
