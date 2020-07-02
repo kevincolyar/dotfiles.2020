@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
      csv
      restclient
      helm
-     auto-completion
+     ;; auto-completion
      better-defaults
      major-modes ;; arduino, etc
      emacs-lisp
@@ -88,7 +88,8 @@ This function should only modify configuration layer settings."
              ranger-cleanup-on-disable t
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4" "DS_Store"))
      yaml
-     python
+     (python :variables
+             python-pipenv-activate t)
      pandoc
      latex
      csharp
@@ -537,6 +538,14 @@ you should place your code here."
 
   (setq org-confirm-babel-evaluate nil)
   (setq org-highlight-latex-and-related '(latex python))
+
+  (setq org-todo-keyword-faces
+    '(
+       ("WAIT" . "red")
+       ("SOMEDAY" . "gray")
+       ;; ("SOMEDAY" . (:foreground "white" :background "#4d4d4d" :weight bold))
+       )
+    )
 
   ;; Fix for emacs terminal
   (setq git-gutter+-modified-sign "~")
