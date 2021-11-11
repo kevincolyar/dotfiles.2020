@@ -43,7 +43,7 @@ This function should only modify configuration layer settings."
           lsp-prefer-flymake t)
      sql
      csv
-     restclient
+     ;; restclient
      helm
      ;; auto-completion
      better-defaults
@@ -72,6 +72,7 @@ This function should only modify configuration layer settings."
                   typescript-lsp-linter nil) ;; Don't use lsp for linting, use eslint instead
      (react :variables
             react-backend 'lsp)
+     graphql
      web-beautify
      prettier
      osx
@@ -89,11 +90,12 @@ This function should only modify configuration layer settings."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4" "DS_Store"))
      yaml
      (python :variables
-             python-pipenv-activate t)
+       python-pipenv-activate t
+       python-auto-set-local-pyenv-version nil ; Don't use, use python on PATH instead
+       )
      pandoc
      latex
      csharp
-     ;; dash
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -142,9 +144,9 @@ It should only modify the values of Spacemacs settings."
    ;; portable dumper in the cache directory under dumps sub-directory.
    ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
-   ;; (default spacemacs.pdmp)
-   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+   ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
+   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
+   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
@@ -164,9 +166,18 @@ It should only modify the values of Spacemacs settings."
    ;; (default '(100000000 0.1))
    dotspacemacs-gc-cons '(100000000 0.1)
 
+   ;; Set `read-process-output-max' when startup finishes.
+   ;; This defines how much data is read from a foreign process.
+   ;; Setting this >= 1 MB should increase performance for lsp servers
+   ;; in emacs 27.
+   ;; (default (* 1024 1024))
+   dotspacemacs-read-process-output-max (* 1024 1024)
+
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
-   ;; latest version of packages from MELPA. (default nil)
+   ;; latest version of packages from MELPA. Spacelpa is currently in
+   ;; experimental state please use only for testing purposes.
+   ;; (default nil)
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -191,6 +202,11 @@ It should only modify the values of Spacemacs settings."
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
+
+   ;; If non-nil show the version string in the Spacemacs buffer. It will
+   ;; appear as (spacemacs version)@(emacs version)
+   ;; (default t)
+   dotspacemacs-startup-buffer-show-version t
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -243,7 +259,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font or prioritized list of fonts.
+   ;; Default font or prioritized list of fonts. The `:size' can be specified as
+   ;; a non-negative integer (pixel size), or a floating-point (point size).
+   ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13.0
                                :weight normal
@@ -268,8 +286,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
 
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m")
-   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
+   ;; Thus M-RET should work as leader key in both GUI and terminal modes.
+   ;; C-M-m also should work in terminal mode, but not in GUI mode.
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
@@ -399,7 +419,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-line-numbers nil
 
-   ;; Code folding method. Possible values are `evil' and `origami'.
+   ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
 
@@ -467,6 +487,20 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
 
+   ;; If non nil activate `clean-aindent-mode' which tries to correct
+   ;; virtual indentation of simple modes. This can interfer with mode specific
+   ;; indent handling like has been reported for `go-mode'.
+   ;; If it does deactivate it here.
+   ;; (default t)
+   dotspacemacs-use-clean-aindent-mode t
+
+   ;; If non-nil shift your number row to match the entered keyboard layout
+   ;; (only in insert state). Currently supported keyboard layouts are:
+   ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
+   ;; New layouts can be added in `spacemacs-editing' layer.
+   ;; (default nil)
+   dotspacemacs-swap-number-row nil
+
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
@@ -474,7 +508,14 @@ It should only modify the values of Spacemacs settings."
    ;; Run `spacemacs/prettify-org-buffer' when
    ;; visiting README.org files of Spacemacs.
    ;; (default nil)
-   dotspacemacs-pretty-docs nil))
+   dotspacemacs-pretty-docs nil
+
+   ;; If nil the home buffer shows the full path of agenda items
+   ;; and todos. If non nil only the file name is shown.
+   dotspacemacs-home-shorten-agenda-source nil
+
+   ;; If non-nil then byte-compile some of Spacemacs files.
+   dotspacemacs-byte-compile nil))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -494,6 +535,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
     ;; https://blog.vifortech.com/posts/emacs-tls-fix/
     ;; (require 'gnutls)
     ;; (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
+
+
+    ;; Disable symlink following message
+    (setq vc-follow-symlinks t)
   )
 
 (defun dotspacemacs/user-load ()
@@ -517,6 +562,15 @@ you should place your code here."
   (setq powerline-default-separator nil)
   ;; (default-key evil-normal-state-map "\C-s" 'save-buffer)
 
+  ;; (setq flycheck-ruby-rubocop-executable "docker-compose exec app rubocop")
+  (setq rspec-use-docker-when-possible 't)
+  (setq rspec-docker-container "app")
+  (setq rspec-docker-cwd "/home/deploy/app/")
+
+  ;; Custom shortcuts
+  (spacemacs/declare-prefix "o" "custom")
+  (spacemacs/set-leader-keys "or" 'ranger)
+
   (add-hook
    'python-mode-hook
    (lambda ()
@@ -531,6 +585,25 @@ you should place your code here."
   ;; Fix for opening TRAMP ssh files
   (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
+  ;; git-gutter fix for opening Docker files via Tramp
+  (with-eval-after-load 'git-gutter+
+    (defun git-gutter+-remote-default-directory (dir file)
+      (let* ((vec (tramp-dissect-file-name file))
+              (method (tramp-file-name-method vec))
+              (user (tramp-file-name-user vec))
+              (domain (tramp-file-name-domain vec))
+              (host (tramp-file-name-host vec))
+              (port (tramp-file-name-port vec)))
+        (tramp-make-tramp-file-name method user domain host port dir)))
+
+    (defun git-gutter+-remote-file-path (dir file)
+      (let ((file (tramp-file-name-localname (tramp-dissect-file-name file))))
+        (replace-regexp-in-string (concat "\\`" dir) "" file))))
+
+  ;; Tell Tramp to use our ~/.ssh/config control master options (re-use ssh connections)
+  ;; This is to speed up org over ssh
+  (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
+
   ;; Map Ctrl-i to typical vim functionality and enable TAB functionality in org mode
   ;; since TAB and Ctrl-i are congruent in the terminal
   (define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
@@ -542,7 +615,7 @@ you should place your code here."
   (setq org-todo-keyword-faces
     '(
        ("WAIT" . "red")
-       ("SOMEDAY" . "gray")
+       ("HOLD" . "gray")
        ;; ("SOMEDAY" . (:foreground "white" :background "#4d4d4d" :weight bold))
        )
     )
@@ -609,3 +682,26 @@ you should place your code here."
   ;; configure jsx-tide checker to run after your default jsx checker
 
   )
+
+;; Do not write anything past this comment. This is where Emacs will
+;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
+  '(org-agenda-files
+     '("/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/inbox.org" "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/home.org" "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/dcpud.org" "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/reference.org")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
