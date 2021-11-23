@@ -3,11 +3,8 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
-
-;; These are used for a number of things, particularly for GPG configuration,
-;; some email clients, file templates and snippets.
-(setq user-full-name "Kevin Colyar"
-      user-mail-address "kevin@colyar.net")
+;; Load private config
+(load-file (expand-file-name "~/.emacs.private"))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -61,14 +58,6 @@
 ;; Use OSX clipboard
 (remove-hook 'doom-post-init-hook #'osx-clipboard-mode)
 
-(setq org-directory "/ssh:imac.lan:/Users/kevincolyar/Dropbox")
-
-(setq org-agenda-files
-  '("/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/inbox.org"
-     "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/home.org"
-     "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/dcpud.org"
-     "/ssh:imac.lan:/Users/kevincolyar/Dropbox/org/reference.org"))
-
 ;; Indent styles
 (setq
   standard-indent 2
@@ -78,9 +67,22 @@
   )
 
 ;; Set localleader to ,
-;; (setq evil-snipe-override-evil-repeat-keys nil)
-;; (setq doom-localleader-key ",")
-;; (setq doom-localleader-alt-key "M-,")
-
 (setq doom-leader-key "SPC"
       doom-localleader-key ",")
+
+;; Set spell correction language
+(setq ispell-dictionary "en")
+
+;; Key Mappings
+;; -----------------------------------------------------------------------------
+(map! :leader
+  :desc "Start Ranger"
+  "o r" #'ranger)
+
+(map! :leader
+  :desc "Previous Buffer"
+  "TAB" #'evil-switch-to-windows-last-buffer)
+
+(map! :leader
+  :desc "Resume search"
+  "s l" #'vertico-repeat)
