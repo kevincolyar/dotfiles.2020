@@ -119,7 +119,7 @@ alias ll="exa -lg"
 
 alias ..='cd ..'
 alias less="less -R"
-alias grep='grep --color=auto'
+# alias grep='grep --color=auto'
 
 if [[ "$PLATFORM" == "Linux" ]]; then
   if ! type exa >> /dev/null; then
@@ -147,7 +147,7 @@ alias as='apt-cache search'
 # git
 alias gl='git pull'
 alias gp='git push'
-alias gd='git difftool'
+alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit -a'
 alias gco='git checkout'
@@ -155,6 +155,9 @@ alias gb='git branch'
 alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias git_diff='git diff --no-ext-diff -w "$@" | vim -R -'
+
+# docker
+alias dc='docker compose'
 
 # Other
 alias vi='vim'
@@ -228,7 +231,7 @@ zstyle ':completion:*' matcher-list '' \
        'r:|?=** m:{a-z\-}={A-Z\_}'
 
 # Load Prompt
-. $HOME/.zsh/steeef.zsh-theme
+# . $HOME/.zsh/steeef.zsh-theme
 
 # Reset prompt if we're on a dumb terminal (Emacs TRAMP)
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
@@ -252,3 +255,6 @@ elif [[ "$PLATFORM" == "Darwin" ]]; then
   . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   fpath=(/usr/local/share/zsh-completions $fpath)
 fi
+
+# Turn on starship prompt
+eval "$(starship init zsh)"

@@ -56,13 +56,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 path=(
-  $HOME/.rbenv/bin
-  $PYENV_ROOT/bin
-  ./node_modules/.bin
+  ./bin
   $HOME/bin
   $HOME/bin/ssh
   $HOME/bin/mount
-  #$ORACLE_HOME
+  $HOME/.emacs.d/bin
+  /usr/local/opt/grep/libexec/gnubin
   /usr/local/sbin
   /usr/local/{bin,sbin}
   $path
@@ -73,20 +72,33 @@ dev() {
   python_version=$(find-up .python-version)
   if [[ ! -z $python_version ]]; then
     echo "Loading pyenv $python_version"
+    path=($PYENV_ROOT/bin $path)
     eval "$(pyenv init -)"
+  fi
+
+  # pyvenv
+  python_env=$(find-up env)
+  if [[ ! -z $python_env ]]; then
+    echo "Setting WORKON_HOME to $python_env"
+    export WORKON_HOME=$python_env
+    echo "Activating python env $python_env"
+    . $python_env/bin/activate
   fi
 
   # rbenv
   ruby_version=$(find-up .ruby-version)
   if [[ ! -z $ruby_version ]]; then
     echo "Loading rbenv $ruby_version"
+    path=($HOME/.rbenv/bin $path)
     eval "$(rbenv init - --no-rehash)"
   fi
 
+  # nvmrc
   node_version=$(find-up .nvmrc)
   if [[ ! -z $node_version ]]; then
     echo "Loading nvm $node_version"
     export NVM_DIR="$HOME/.nvm"
+    path=(./node_modules/.bin, $path)
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     nvm use
   fi
